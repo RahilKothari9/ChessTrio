@@ -30,11 +30,12 @@ export class Game {
         if(player !== this.turn) {
             return
         }
-        if(!this.moves.includes(move)) {
+        try {
+            this.board.move(move)
+        }
+        catch (e) {
             return
         }
-        this.board.move(move)
-        this.moves = this.board.moves()
         this.turn = this.turn === this.player1 ? this.player2 : this.player1
 
         if(this.board.isCheckmate()) {
