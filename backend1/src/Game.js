@@ -34,6 +34,8 @@ export class Game {
             this.board.move(move)
         }
         catch (e) {
+            console.log(move)
+            console.log(e)
             return
         }
         this.turn = this.turn === this.player1 ? this.player2 : this.player1
@@ -75,18 +77,15 @@ export class Game {
         console.log(this.moves)
         console.log(this.board.ascii())
         console.log(this.board.history())
-        if(this.turn === this.player2) {
+       
             this.player2.send(JSON.stringify({
                 type: MOVE,
                 move: move
             }))
-        }
-        else
-        {
+        
             this.player1.send(JSON.stringify({
                 type: MOVE,
                 move: move
             }))
-        }
     }
 }

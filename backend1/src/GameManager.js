@@ -28,7 +28,9 @@ export class GameManager {
             const message = JSON.parse(data.toString())
 
             if(message.type === INIT_GAME) {
-                if(this.pendingUser) {
+                console.log('init')
+                if(this.pendingUser && this.pendingUser !== socket) {
+                    console.log('start')
                     const game = new Game(this.pendingUser, socket)
                     this.games.push(game)
                     this.pendingUser = null
@@ -40,7 +42,7 @@ export class GameManager {
 
             if(message.type === MOVE) {
                 const game = this.games.find(game => game.player1 === socket || game.player2 === socket)
-                game.makeMove(socket, message.move)
+                if(game)game.makeMove(socket, message.move)
             }
         })
     }
